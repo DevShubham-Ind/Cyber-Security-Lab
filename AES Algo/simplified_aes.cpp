@@ -211,6 +211,7 @@ string decrypt(string encrypted, vector<string> &keys, unordered_map<string, str
         }
         cout << "substituted  : " << substituted << endl;
         substituted = XORstring(substituted, keys[1]);
+        cout << "sub XOR K1   : " << substituted << endl;
 
         string s00 = substituted.substr(0, 4);
         string s10 = substituted.substr(4, 4);
@@ -230,6 +231,14 @@ string decrypt(string encrypted, vector<string> &keys, unordered_map<string, str
         // string sd11 = XORstring(gf_matrix[getRow(4)][binaryToInt(s01) -1] , s11);
         string sd11 = XORstring(gf_matrix[getRow(4)][binaryToInt(s01) -1] , gf_matrix[getRow(4)][binaryToInt(s11) -1]);
 
+        cout << "s00 : " << s00 << endl;
+        cout << "s00 : " << binaryToInt(s00) -1 << endl;
+        // ----------- here -------------------
+        cout << "row : " << getRow(9) << endl;
+        cout << "sd00 : " << sd00  << " | " << gf_matrix[getRow(9)][binaryToInt(s00) -1] << " X " << gf_matrix[getRow(2)][binaryToInt(s10) -1] << endl;
+        cout << "sd10 : " << sd10 << endl;
+        cout << "sd01 : " << sd01 << endl;
+        cout << "sd11 : " << sd11 << endl;
 
         string round1_res = sd00 + sd10 + sd01 + sd11;
         cout << "Col mul      : " << round1_res << endl;
@@ -293,10 +302,16 @@ int main(){
     };
 
 
+    // vector<vector<string>> gf_matrix = {
+    // { "0010", "0100", "0110", "1000", "1010", "1100", "1110", "0011", "0001", "0111", "0101", "1011", "1001", "1111", "1101" },
+    // { "0100", "1000", "1100", "0011", "0111", "1011", "1111", "0110", "0010", "1110", "1010", "0101", "0001", "1101", "1001" },
+    // { "1001", "0001", "1010", "0010", "1011", "0011", "1000", "0100", "1101", "0101", "1110", "0110", "1111", "0111", "1100" }
+    // };
+
     vector<vector<string>> gf_matrix = {
-    { "0010", "0100", "0110", "1000", "1010", "1100", "1110", "0011", "0001", "0111", "0101", "1011", "1001", "1111", "1101" },
-    { "0100", "1000", "1100", "0011", "0111", "1011", "1111", "0110", "0010", "1110", "1010", "0101", "0001", "1101", "1001" },
-    { "1001", "0001", "1010", "0010", "1011", "0011", "1000", "0100", "1101", "0101", "1110", "0110", "1111", "0111", "1100" }
+    {"0010", "0100", "0110", "1000", "1010", "1100", "1110", "0011", "0001", "0111", "0101", "1011", "1001", "1111", "1101"}, 
+    {"0100", "1000", "1100", "0011", "0111", "1011", "1111", "0110", "0010", "1110", "1010", "0101", "0001", "1101", "1001"}, 
+    {"1001", "0001", "1000", "0010", "1011", "0011", "1010", "0100", "1101", "0101", "1100", "0110", "1111", "0111", "1110"}
     };
 
     vector<string> ws = keyGen(KEY, sbox);    
