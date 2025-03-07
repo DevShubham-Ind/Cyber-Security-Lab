@@ -133,16 +133,6 @@ string encrypt(string text, vector<string> &keys, unordered_map<string, string> 
     string s10 = shiftNiddles.substr(4, 4);
     string s01 = shiftNiddles.substr(8, 4);
     string s11 = shiftNiddles.substr(12, 4);
-
-    // cout << "s00: " << s00 << endl;
-    // cout << "s10: " << s10 << "| binary of it : " << binaryToInt(s10) << endl;
-    // cout << "tom: " << gf_matrix[getRow(4)][binaryToInt(s10)-1] << endl;
-
-    // cout << "binary to int -> binary: " << s10 << " | int : " << binaryToInt(s10)+1 << endl;
-    // printf("sd00 = XOR (%s, gf[%d][%d])\n", s00, getRow(4), binaryToInt(s10));
-    // string sd00 = XORstring(s00 , gf_matrix[getRow(4)][binaryToInt(s10)-1]);
-    // cout << "sd00 : " << sd00 << endl;
-    // return "";
     
     // Column Multiplication
     string sd00 = XORstring(s00 , gf_matrix[getRow(4)][binaryToInt(s10) -1]);
@@ -183,7 +173,7 @@ string encrypt(string text, vector<string> &keys, unordered_map<string, string> 
     
     // XOR with key 3
     string round2_res = XORstring(shiftNiddles, keys[2]);
-    cout << "Round2 res  : " << round2_res << endl;
+    cout << "Round2 res   : " << round2_res << endl;
     cout << "---------------------------" << endl;
 
     return round2_res;
@@ -193,7 +183,7 @@ string decrypt(string encrypted, vector<string> &keys, unordered_map<string, str
     vector<vector<string>> &gf_matrix) {
         // encrypted - XOR - key 3
         string res = XORstring(encrypted, keys[2]);
-        cout << "res      : " << res << endl;
+        cout << "res          : " << res << endl;
 
         // shift/ swap 2nd & 4th niddle
         string shiftNiddles = res;
@@ -219,26 +209,10 @@ string decrypt(string encrypted, vector<string> &keys, unordered_map<string, str
         string s11 = substituted.substr(12, 4);
         
         // Inverse Column Multiplication
-        // string sd00 = XORstring(s00 , gf_matrix[getRow(4)][binaryToInt(s10) -1]);
         string sd00 = XORstring(gf_matrix[getRow(9)][binaryToInt(s00) -1] , gf_matrix[getRow(2)][binaryToInt(s10) -1]);
-
-        // string sd10 = XORstring(gf_matrix[getRow(4)][binaryToInt(s00) -1] , s10);
         string sd10 = XORstring(gf_matrix[getRow(2)][binaryToInt(s00) -1] , gf_matrix[getRow(9)][binaryToInt(s10) -1]);
-
-        // string sd01 = XORstring(s01 , gf_matrix[getRow(4)][binaryToInt(s11) -1]);
         string sd01 = XORstring(gf_matrix[getRow(9)][binaryToInt(s01) -1] , gf_matrix[getRow(2)][binaryToInt(s11) -1]);
-
-        // string sd11 = XORstring(gf_matrix[getRow(4)][binaryToInt(s01) -1] , s11);
-        string sd11 = XORstring(gf_matrix[getRow(4)][binaryToInt(s01) -1] , gf_matrix[getRow(4)][binaryToInt(s11) -1]);
-
-        cout << "s00 : " << s00 << endl;
-        cout << "s00 : " << binaryToInt(s00) -1 << endl;
-        // ----------- here -------------------
-        cout << "row : " << getRow(9) << endl;
-        cout << "sd00 : " << sd00  << " | " << gf_matrix[getRow(9)][binaryToInt(s00) -1] << " X " << gf_matrix[getRow(2)][binaryToInt(s10) -1] << endl;
-        cout << "sd10 : " << sd10 << endl;
-        cout << "sd01 : " << sd01 << endl;
-        cout << "sd11 : " << sd11 << endl;
+        string sd11 = XORstring(gf_matrix[getRow(2)][binaryToInt(s01) -1] , gf_matrix[getRow(9)][binaryToInt(s11) -1]);
 
         string round1_res = sd00 + sd10 + sd01 + sd11;
         cout << "Col mul      : " << round1_res << endl;
@@ -263,19 +237,21 @@ string decrypt(string encrypted, vector<string> &keys, unordered_map<string, str
 
         // inv_substituted - XOR - key 0
         string round2_res = XORstring(inv_substituted, keys[0]);
-        cout << "Round2 res: " << round2_res << endl;
+        cout << "Round2 res   : " << round2_res << endl;
+        cout << "---------------------------" << endl;
 
         return round2_res;
 }
 
 int main(){
-    cout << "Plain text : ";
+    cout << "Plain text        : ";
     string text ="";
     getline(cin, text);
 
     string KEY ="";
     cout << "Enter Key(16 bit) : ";
     getline(cin, KEY);
+    cout << endl;
 
     unordered_map<string, string> sbox =
     {
@@ -319,6 +295,8 @@ int main(){
     for(int i=0; i<ws.size(); i++){
         cout << "W" << i << " : " << ws[i] << endl;
     }
+
+    printf("\n==================================\n");
 
     vector<string> keys = {ws[0]+ws[1], ws[2]+ws[3], ws[4]+ws[5]};
 
