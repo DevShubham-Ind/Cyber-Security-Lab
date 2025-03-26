@@ -5,13 +5,8 @@ using namespace std;
 
 int getMod(int a, int b){
     if(a == 0) return 0;
-    else if(a > 0){
-        return a % b;
-    }
-    else{
-        a *= -1;
-        return b - (a % b);
-    }
+    else if(a > 0) return a % b;
+    else return b - (abs(a) % b);
 }
 
 pair<int, int> add_Two_Points_On_Curve(int x1, int y1, int x2, int y2, int z){

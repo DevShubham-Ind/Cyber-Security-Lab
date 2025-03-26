@@ -9,8 +9,7 @@ int getMod(int a, int b){
         return a % b;
     }
     else{
-        a *= -1;
-        return b - (a % b);
+        return b - (abs(a) % b);
     }
 }
 
