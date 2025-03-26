@@ -103,7 +103,11 @@ int binaryToInt(string bits){
 int getRow(int n){
     if(n == 2) return 0;
     else if(n == 4) return 1;
-    else return 2;
+    else if(n == 9) return 2;
+    else{
+        cout << "incorrect n value : " << n << " | returning 2" << endl;
+        return 2;
+    }
 }
 
 string encrypt(string text, vector<string> &keys, unordered_map<string, string> sbox, 
