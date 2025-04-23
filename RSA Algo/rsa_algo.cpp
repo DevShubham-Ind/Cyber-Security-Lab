@@ -14,12 +14,11 @@ int modInverse(int e, int phi) {
     return -1;
 }
 
-// Function to perform modular exponentiation
 long long modExp(long long base, long long exp, long long mod) {
     long long result = 1;
     base %= mod;
     while (exp > 0) {
-        if (exp % 2 == 1)  // If exp is odd
+        if (exp % 2 == 1)
             result = (result * base) % mod;
         base = (base * base) % mod;
         exp /= 2;
@@ -28,24 +27,27 @@ long long modExp(long long base, long long exp, long long mod) {
 }
 
 int main() {
-    // Step 1: Choose two prime numbers (small ones for simplicity)
-    int p = 11;
-    int q = 17;
+    // int p = 11;
+    // int q = 17;
+    int p, q;
+    cout << "Enter p: " ;
+    cin >> p;
+    cout << "Enter q: " ;
+    cin >> q;
 
-    // Step 2: Compute n = p * q
     int n = p * q;
 
-    // Step 3: Compute phi(n)
     int phi = (p - 1) * (q - 1);
 
-    // Step 4: Choose e such that 1 < e < phi and gcd(e, phi) = 1
-    int e = 7; // Commonly used value
+    // e such that 1 < e < phi and gcd(e, phi) = 1
+    // int e = 7;
+    int e;
+    cout << "Enter e: ";
+    cin >> e;
     while (gcd(e, phi) != 1) e++;
 
-    // Step 5: Compute d (modular inverse of e)
     int d = modInverse(e, phi);
 
-    // Display keys
     cout << "Public Key: (" << e << ", " << n << ")\n";
     cout << "Private Key: (" << d << ", " << n << ")\n";
 
