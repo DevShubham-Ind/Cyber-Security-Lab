@@ -26,7 +26,7 @@ int main(){
         printf(" %2d  |  %2d  |  %2d  |\n", i, y_val[i], x_val[i]);
     }
 
-    cout << "-------------------" << endl << endl;;
+    cout << "--------------------" << endl << endl;;
     cout << "Points lie on curve: " << endl;
     int count =0;
     for(int i=0; i < n; ++i){

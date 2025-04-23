@@ -27,8 +27,6 @@ long long modExp(long long base, long long exp, long long mod) {
 }
 
 int main() {
-    // int p = 11;
-    // int q = 17;
     int p, q;
     cout << "Enter p: " ;
     cin >> p;
@@ -40,7 +38,6 @@ int main() {
     int phi = (p - 1) * (q - 1);
 
     // e such that 1 < e < phi and gcd(e, phi) = 1
-    // int e = 7;
     int e;
     cout << "Enter e: ";
     cin >> e;
